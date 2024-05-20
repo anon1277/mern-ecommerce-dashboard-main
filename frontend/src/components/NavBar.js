@@ -19,6 +19,9 @@ const NavBar = () => {
                 {/* Link to Profile */}
                 <li><Link to="/profile">Profile</Link></li>
 
+                 {/* Link to Signup */}
+                 <li><Link to="/signup">Signup</Link></li>
+
                 {/* Link to Logout */}
                 <li><Link to="/logout">Logout</Link></li>
             </ul>
