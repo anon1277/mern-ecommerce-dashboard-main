@@ -1,13 +1,11 @@
-.nav-ul li{
-  display: inline-block;
-  padding: 10px;
-} 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Global styles */
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
 }
 
+/* Header styles */
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -17,55 +15,42 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  text-align: center;
 }
 
- .nav-ul li a{
-  padding: 5px;
+/* Navigation menu styles */
+.nav-ul {
+  padding: 10px;
+  background-color: #71b0cf;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  list-style-type: none;
+}
+
+.nav-ul li {
+  padding: 15px 20px;
+  margin: 0 10px;
+  text-align: center;
+}
+
+.nav-ul li a {
   color: #fff;
   text-decoration: none;
-} 
-
-/* register page Input Fields */
-.inputBox{
-  display: block;
-  margin: 25px;
-  padding: 7x;
-  border: 1px solid skyblue;
+  font-weight: bold;
+  transition: color 0.3s ease;
 }
 
-
-/* registe_div on register Form */
-.registe_div{
-  margin-left: 30%;
-
+/* Hover effect on nav links */
+.nav-ul li a:hover {
+  color: #ffcc00;
 }
 
-/* .Signup_btn on Register Form */
-.Signup_btn{
-  margin: 25px;
-  padding: 10px;
-  width: 100px;
-  background-color: skyblue;
-  border: 1;
-}
-.nav-ul{
-  padding: 5px;
-  background-color: skyblue;
-  margin: 0;
-} 
-
-.footer{
-  position: absolute;
-  bottom: 0;
-  text-align: center;
-  width: 100%;
-  background-color: skyblue;
-
-}
-
-
-.App-link {
-  color: #61dafb;
+/* Logo animation */
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
 }
 
 @keyframes App-logo-spin {
@@ -74,5 +59,88 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+/* Register page Input Fields */
+.inputBox {
+  display: block;
+  margin: 25px 0;
+  padding: 12px;
+  border: 2px solid #71b0cf;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+/* Register form container */
+.registe_div {
+  margin-left: 30%;
+  margin-right: 30%;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Signup button styling */
+.Signup_btn {
+  margin: 20px 0;
+  padding: 10px 20px;
+  width: 100%;
+  background-color: #71b0cf;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.Signup_btn:hover {
+  background-color: #71b0cf;
+}
+
+/* Footer styles */
+.footer {
+  position: relative;
+  bottom: 0;
+  text-align: center;
+  width: 100%;
+  background-color: #71b0cf;
+  padding: 15px 0;
+  color: white;
+  font-size: 14px;
+  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.App-link {
+  color: #61dafb;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Responsive design tweaks */
+@media (max-width: 768px) {
+  .nav-ul {
+    flex-direction: column;
+  }
+
+  .nav-ul li {
+    padding: 10px 15px;
+  }
+
+  .registe_div {
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+
+  .inputBox {
+    width: 100%;
+  }
+
+  .Signup_btn {
+    width: 100%;
   }
 }

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {useNavigate} from 'react-router-dom';
 
 // Signup Component
 const Signup = () => {
@@ -6,10 +7,22 @@ const Signup = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate(); 
 
     // Function to collect and log form data
-    const collectdata = () => {
+    const collectdata = async () => {
         console.warn(name, email, password);
+
+        let result = await fetch("http://localhost:8050/register" ,{
+            method:'post',
+            body : JSON.stringify({name ,email,password}),
+            headers:{
+                'Content-type':'application/json'
+            }
+        });
+        result  = await result.json();
+        console.log("sign up result" ,result);
+        navigate('/')
     };
 
     // JSX for the Signup component
