@@ -1,8 +1,18 @@
 import React from 'react'; // Importing React library
-import { Link } from 'react-router-dom'; // Importing Link component from react-router-dom
+import { Link , useNavigate} from 'react-router-dom'; // Importing Link component from react-router-dom
 
 // Functional component for Navbar
 const NavBar = () => {
+
+    const auth = localStorage.getItem('user');
+
+    //navigate
+    const Navigate = useNavigate();  
+    //logout function
+    const Logout = ()=>{
+        localStorage.clear();
+        Navigate('/signup');
+    }
     return (
         <div>
             {/* Navigation links */}
@@ -20,10 +30,8 @@ const NavBar = () => {
                 <li><Link to="/profile">Profile</Link></li>
 
                  {/* Link to Signup */}
-                 <li><Link to="/signup">Signup</Link></li>
-
-                {/* Link to Logout */}
-                <li><Link to="/logout">Logout</Link></li>
+                 {auth ? <li><Link onClick={Logout} to="/signup">Logout</Link></li> : <li><Link to="/signup">Signup</Link></li>}
+   
             </ul>
         </div>
     );

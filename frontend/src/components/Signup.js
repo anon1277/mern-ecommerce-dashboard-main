@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {useNavigate} from 'react-router-dom';
 
 // Signup Component
@@ -8,6 +8,15 @@ const Signup = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate(); 
+
+    //check condtion for if user is login then don't show signu page
+    useEffect(() => {
+        const auth = localStorage.getItem('user');
+        if (auth) {
+            navigate('/');
+        }
+    },[]);
+
 
     // Function to collect and log form data
     const collectdata = async () => {
@@ -22,6 +31,7 @@ const Signup = () => {
         });
         result  = await result.json();
         console.log("sign up result" ,result);
+        localStorage.setItem('user' ,JSON.stringify(result));
         navigate('/')
     };
 
