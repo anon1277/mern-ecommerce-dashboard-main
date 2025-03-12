@@ -29,6 +29,9 @@ const NavBar = () => {
                 {/* Link to Profile */}
                 <li><Link to="/profile">Profile</Link></li>
 
+                {/* Link to Signup */}
+                {auth ? '' : <li><Link  to="/login">Login</Link></li>}
+   
                  {/* Link to Signup */}
                  {auth ? <li><Link onClick={Logout} to="/signup">Logout</Link></li> : <li><Link to="/signup">Signup</Link></li>}
    

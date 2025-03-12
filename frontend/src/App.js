@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'; // Importing Br
 import Footer from './components/Footer';
 import Signup from './components/Signup';
 import PrivateComponent from './components/PrivateComponent';
-
+import Login from  './components/Login';
 function App() {
   return (
     <div className="App">
@@ -33,6 +33,8 @@ function App() {
             {/* Route for Logout */}
             <Route path="/logout" element={<h1>Logout</h1>} />
           </Route>
+
+          <Route path="/login" element={<Login />} />
 
           <Route path="/signup" element={<Signup />} />
 
