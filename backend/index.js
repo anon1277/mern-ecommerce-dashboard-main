@@ -3,7 +3,8 @@ const cors = require('cors')
 //load database config file
 require('./db/config');
 
-const User = require('./db/User');
+const User = require('./db/User'); //User Model
+const Product = require('./db/Product') //Product Model
 const app = express(); // Create an instance of express
 
 app.use(express.json());
@@ -51,6 +52,24 @@ app.post('/login', async (req, res) => {
         res.send({ result: "Wrong email or password" });
     }
 })
+
+    // Endpoint to add a new product
+    app.post('/add-product', async (req, res) => { 
+
+        // Create a new product instance using the request body data
+        let product = new Product(req.body);
+        
+        try {
+            // Save the new product to the database
+            let result = await product.save();
+            
+            // Send the saved product data as a response
+            res.send(result);
+        } catch (error) {
+            // Handle any errors during the product saving process
+            res.status(500).send({ message: 'Error saving product', error: error.message });
+        }
+    });
 
 // Start the server and listen on port 8050
 app.listen(8050, () => {
