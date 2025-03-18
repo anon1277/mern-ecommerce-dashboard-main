@@ -31,7 +31,7 @@ body {
 .nav-ul li {
   padding: 15px 20px;
   margin: 0 10px;
-  text-align: center;
+  /* text-align: center; */
 }
 
 .nav-ul li a {
@@ -104,16 +104,18 @@ body {
 
 /* Footer styles */
 .footer {
-  position: relative;
+  position: fixed;
   bottom: 0;
-  text-align: center;
+  left: 0;
   width: 100%;
   background-color: #71b0cf;
   padding: 15px 0;
   color: white;
   font-size: 14px;
+  text-align: center;
   box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
 }
+
 
 .App-link {
   color: #61dafb;
@@ -187,6 +189,23 @@ body {
   color: #888;
 }
 
+.nav-right {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.logo{
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  float: left;
+  margin-top: 8px;
+  margin-left: 10px;
+  background-color: #71b0cf;
+  position: absolute;
+
+}
 /* Media Queries for Responsiveness */
 @media (max-width: 768px) {
   /* For tablets and smaller screens */

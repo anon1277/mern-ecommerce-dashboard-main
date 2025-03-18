@@ -14,28 +14,29 @@ const NavBar = () => {
         Navigate('/signup');
     }
     return (
-        <div>
-            {/* Navigation links */}
-            <ul className='nav-ul'>
-                {/* Link to Products */}
-                <li><Link to="/">Products</Link></li>
-                
-                {/* Link to Add Product */}
-                <li><Link to="/add-product">Add Products</Link></li>
+        <div style={{ background: "#71b0cf" }} >
+            <img className='logo' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDmD2GxwFUjESzEyUPaK-t49jc55yBcc9HiA&s" alt=" testloho" />
+           {auth ? (
+                    <ul className='nav-ul'>
+                        {/* Navigation links */}
+                        <li><Link to="/">Products</Link></li>
+                        <li><Link to="/add-product">Add Products</Link></li>
+                        <li><Link to="/update-product">Update Products</Link></li>
+                        <li><Link to="/profile">Profile</Link></li>
+                        <li>
+                            <Link to="/login" onClick={Logout} className="logout-button">
+                            Logout ({auth ? JSON.parse(auth)?.name : ''})
+                            </Link>
+                        </li>
 
-                {/* Link to Update Product */}
-                <li><Link to="/update-product">Update Products</Link></li>
+                    </ul>
+                ) : (
+                    <ul className='nav-ul nav-right'>
+                        <li><Link to="/login">Login</Link></li>
+                        <li><Link to="/signup">Signup</Link></li>
+                    </ul>
+                )}
 
-                {/* Link to Profile */}
-                <li><Link to="/profile">Profile</Link></li>
-
-                {/* Link to Signup */}
-                {auth ? '' : <li><Link  to="/login">Login</Link></li>}
-   
-                 {/* Link to Signup */}
-                 {auth ? <li><Link onClick={Logout} to="/signup">Logout</Link></li> : <li><Link to="/signup">Signup</Link></li>}
-   
-            </ul>
         </div>
     );
 }
