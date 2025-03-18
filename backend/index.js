@@ -39,37 +39,44 @@ app.post('/login', async (req, res) => {
     if (req.body.email && req.body.password) {
         // Search for the user based on the provided email and password (excluding the password field)
         let user = await User.findOne(req.body).select("-password");
-        
+
         // If user exists, send user data in response
         if (user) {
             res.send(user);
         } else {
             // If no user is found, return an error message
-            res.send({ result: "Wrong email or password" });
+            res.send({
+                result: "Wrong email or password"
+            });
         }
     } else {
         // If email or password is missing, return an error message
-        res.send({ result: "Wrong email or password" });
+        res.send({
+            result: "Wrong email or password"
+        });
     }
 })
 
-    // Endpoint to add a new product
-    app.post('/add-product', async (req, res) => { 
+// Endpoint to add a new product
+app.post('/add-product', async (req, res) => {
 
-        // Create a new product instance using the request body data
-        let product = new Product(req.body);
-        
-        try {
-            // Save the new product to the database
-            let result = await product.save();
-            
-            // Send the saved product data as a response
-            res.send(result);
-        } catch (error) {
-            // Handle any errors during the product saving process
-            res.status(500).send({ message: 'Error saving product', error: error.message });
-        }
-    });
+    // Create a new product instance using the request body data
+    let product = new Product(req.body);
+
+    try {
+        // Save the new product to the database
+        let result = await product.save();
+
+        // Send the saved product data as a response
+        res.send(result);
+    } catch (error) {
+        // Handle any errors during the product saving process
+        res.status(500).send({
+            message: 'Error saving product',
+            error: error.message
+        });
+    }
+});
 
 // Start the server and listen on port 8050
 app.listen(8050, () => {
