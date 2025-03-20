@@ -4,7 +4,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'; // Importing Br
 import Footer from './components/Footer';
 import Signup from './components/Signup';
 import PrivateComponent from './components/PrivateComponent';
-import Login from  './components/Login';
+import Login from './components/Login';
+import AddProduct from './components/AddProduct';
 function App() {
   return (
     <div className="App">
@@ -21,7 +22,7 @@ function App() {
             <Route path="/" element={<h1>Products Listing Components</h1>} />
 
             {/* Route for Adding Products */}
-            <Route path="/add-product" element={<h1>Add Products Components</h1>} />
+            <Route path="/add-product" element={<AddProduct />} />
 
             {/* Route for Updating Products */}
             <Route path="/update-product" element={<h1>Update Products Components</h1>} />
