@@ -78,6 +78,23 @@ app.post('/add-product', async (req, res) => {
     }
 });
 
+app.get('/list-product', async (req, res) => {
+    try {
+        // Fetch all products from the database
+        let result = await Product.find();
+
+        // Check if the product list is empty
+        if (result.length === 0) {
+            return res.status(404).send({ message: "No products found" });
+        }
+
+        res.send(result);
+    } catch (error) {
+        console.error("Error fetching products:", error);
+        res.status(500).send({ error: "Internal Server Error" });
+    }
+});
+
 // Start the server and listen on port 8050
 app.listen(8050, () => {
     console.log('Server is running on port 8050'); // Log a message when the server starts
