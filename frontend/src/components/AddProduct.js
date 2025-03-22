@@ -1,113 +1,124 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const AddProduct = () => {
+  // State variables to store product details
+  const [productname, setProductname] = useState("");
+  const [productPrice, setProductPrice] = useState("");
+  const [productCompany, setProductCompany] = useState("");
+  const [productCategory, setProductCategory] = useState("");
 
-    // State variables to store product details
-    const [productname, setProductname] = useState('');
-    const [productPrice, setProductPrice] = useState('');
-    const [productCompany, setProductCompany] = useState('');
-    const [productCategory, setproductCategory] = useState('');
+  // Validation state
+  const [errors, setErrors] = useState({});
 
-    // Function to handle product addition
-    const HandleAddProduct = async () => {
-        try {
-            // Retrieve user details from localStorage
-            const user = localStorage.getItem('user');
-            if (!user) {
-                console.error("User not found in localStorage");
-                return;
-            }
+  // Function to validate form fields
+  const validateForm = () => {
+    let errors = {};
 
-            // Parse user data from localStorage
-            const userId = JSON.parse(user);
-            console.log("User ID:", userId);
+    if (!productname.trim()) errors.productname = "Product name is required";
+    if (!productPrice.trim()) {
+      errors.productPrice = "Product price is required";
+    } else if (isNaN(productPrice) || Number(productPrice) <= 0) {
+      errors.productPrice = "Price must be a valid number";
+    }
+    if (!productCompany.trim()) errors.productCompany = "Company name is required";
+    if (!productCategory.trim()) errors.productCategory = "Category is required";
 
-            // Send a POST request to the backend API to add the product
-            const response = await fetch("http://localhost:8050/add-product", {
-                method: "POST",
-                body: JSON.stringify({ 
-                    name: productname, 
-                    price: productPrice, 
-                    company: productCompany, 
-                    userId: userId,
-                    category: productCategory 
-                }),
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            });
+    setErrors(errors);
+    return Object.keys(errors).length === 0; // Return true if no errors
+  };
 
-            // Check if the request was successful
-            if (!response.ok) {
-                throw new Error(`Error: ${response.status} - ${response.statusText}`);
-            }
+  // Function to handle product addition
+  const HandleAddProduct = async () => {
+    if (!validateForm()) return; // Stop submission if validation fails
 
-            // Parse and log the response
-            const result = await response.json();
-            console.log('Product added successfully:', result);
-        } catch (error) {
-            // Log any errors encountered during the request
-            console.error("Failed to add product:", error);
-        }
-    };
+    try {
+      const user = localStorage.getItem("user");
+      if (!user) {
+        console.error("User not found in localStorage");
+        return;
+      }
 
-    return (
-        <>
-            <div className='add-product'>
-                <h1>Add Product Page</h1>
+      const userId = JSON.parse(user);
 
-                {/* Input field for product name */}
-                <input 
-                    type='text' 
-                    className='inputBox' 
-                    onChange={(e) => setProductname(e.target.value)} 
-                    name="product_name" 
-                    id="product_name" 
-                    placeholder='Enter Product Name' 
-                />
-                <br/>
+      const response = await fetch("http://localhost:8050/add-product", {
+        method: "POST",
+        body: JSON.stringify({
+          name: productname,
+          price: productPrice,
+          company: productCompany,
+          userId: userId,
+          category: productCategory,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
-                {/* Input field for product price */}
-                <input 
-                    type='text' 
-                    className='inputBox' 
-                    onChange={(e) => setProductPrice(e.target.value)} 
-                    name="produxt_price" 
-                    id="produxt_price" 
-                    placeholder='Enter Product Price' 
-                />
-                <br/>
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} - ${response.statusText}`);
+      }
 
-                {/* Input field for product company */}
-                <input 
-                    type='text' 
-                    className='inputBox' 
-                    onChange={(e) => setProductCompany(e.target.value)} 
-                    name="produxt_company" 
-                    id="produxt_company" 
-                    placeholder='Enter Product Company' 
-                />
-                <br/>
+      const result = await response.json();
+      console.log("Product added successfully:", result);
+    } catch (error) {
+      console.error("Failed to add product:", error);
+    }
+  };
 
-                {/* Input field for product category */}
-                <input 
-                    type='text' 
-                    className='inputBox' 
-                    onChange={(e) => setproductCategory(e.target.value)}  
-                    name="product_category" 
-                    id="product_category" 
-                    placeholder='Enter Product Category' 
-                />
-                <br/>
+  return (
+    <div className="add-product">
+      <h1>Add Product Page</h1>
 
-                {/* Button to trigger product addition */}
-                <button className='add-product-btn' onClick={HandleAddProduct}> 
-                    Add Product
-                </button>
-                <br/>
-            </div>
-        </>
-    );
+      {/* Product Name */}
+      <input
+        type="text"
+        className="inputBox"
+        value={productname}
+        onChange={(e) => setProductname(e.target.value)}
+        placeholder="Enter Product Name"
+      />
+      {errors.productname && <span className="span_error">{errors.productname}</span>}
+      <br />
+
+      {/* Product Price */}
+      <input
+        type="text"
+        className="inputBox"
+        value={productPrice}
+        onChange={(e) => setProductPrice(e.target.value)}
+        placeholder="Enter Product Price"
+      />
+      {errors.productPrice && <span className="span_error">{errors.productPrice}</span>}
+      <br />
+
+      {/* Product Company */}
+      <input
+        type="text"
+        className="inputBox"
+        value={productCompany}
+        onChange={(e) => setProductCompany(e.target.value)}
+        placeholder="Enter Product Company"
+      />
+      {errors.productCompany && <span className="span_error">{errors.productCompany}</span>}
+      <br />
+
+      {/* Product Category */}
+      <input
+        type="text"
+        className="inputBox"
+        value={productCategory}
+        onChange={(e) => setProductCategory(e.target.value)}
+        placeholder="Enter Product Category"
+      />
+      {errors.productCategory && <span className="span_error">{errors.productCategory}</span>}
+      <br />
+
+      {/* Submit Button */}
+      <button className="add-product-btn" onClick={HandleAddProduct} disabled={Object.keys(errors).length > 0}>
+        Add Product
+      </button>
+    </div>
+  );
 };
 
 export default AddProduct;

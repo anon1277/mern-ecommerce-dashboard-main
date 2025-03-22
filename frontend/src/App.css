@@ -221,6 +221,12 @@ body {
   position: absolute;
 
 }
+
+.span_error{
+    display: block;
+    color: red;
+    margin-top: -20px;
+}
 /* Media Queries for Responsiveness */
 @media (max-width: 768px) {
   /* For tablets and smaller screens */
