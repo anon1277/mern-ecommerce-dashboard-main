@@ -227,6 +227,52 @@ body {
     color: red;
     margin-top: -20px;
 }
+
+/* General Page Styles */
+.product-list-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.product-list-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Table Styles */
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.product-table th, .product-table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.product-table th {
+  background: #f4f4f4;
+  font-weight: bold;
+}
+
+.product-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.product-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Loader */
+.loading-text {
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
 /* Media Queries for Responsiveness */
 @media (max-width: 768px) {
   /* For tablets and smaller screens */
