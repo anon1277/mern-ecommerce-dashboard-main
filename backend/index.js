@@ -95,6 +95,32 @@ app.get('/list-product', async (req, res) => {
     }
 });
 
+app.delete("/delete-product/:id", async (req, res) => {
+    try {
+        const productId = req.params.id;
+        
+        // Validate if the ID is valid
+        if (!productId) {
+            return res.status(400).json({ message: "Product ID is required" });
+        }
+
+        // Attempt to delete the product
+        const result = await Product.deleteOne({ _id: productId });
+
+        // Check if a product was deleted
+        if (result.deletedCount === 0) {
+            return res.status(404).json({ message: "Product not found" });
+        }
+
+        // Send success response
+        return res.status(200).json({ message: "Product deleted successfully" });
+    } catch (error) {
+        // Handle any errors
+        console.error("Error deleting product:", error);
+        return res.status(500).json({ message: "An error occurred while deleting the product" });
+    }
+});
+
 // Start the server and listen on port 8050
 app.listen(8050, () => {
     console.log('Server is running on port 8050'); // Log a message when the server starts
