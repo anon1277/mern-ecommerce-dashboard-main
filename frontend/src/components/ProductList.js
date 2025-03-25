@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
+import Swal from "sweetalert2"; // Import SweetAlert2
 
 const ProductList = () => {
     const [products, setProducts] = useState([]);
@@ -22,6 +23,40 @@ const ProductList = () => {
         }
     };
 
+    // Delete product function with SweetAlert2 confirmation
+    const deleteProduct = async (id) => {
+        // Show SweetAlert2 confirmation dialog
+        const result = await Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Yes, delete it!"
+        });
+
+        if (result.isConfirmed) {
+            try {
+                const response = await fetch(`http://localhost:8050/delete-product/${id}`, {
+                    method: 'DELETE',
+                });
+
+                if (response.ok) {
+                    // Remove deleted product from the list
+                    setProducts((prevProducts) => prevProducts.filter((product) => product._id !== id));
+                    setFilteredProducts((prevFiltered) => prevFiltered.filter((product) => product._id !== id));
+                    Swal.fire("Deleted!", "Your product has been deleted.", "success"); // Success message
+                } else {
+                    Swal.fire("Error!", "Failed to delete product.", "error"); // Error message
+                }
+            } catch (error) {
+                console.error("Error deleting product:", error);
+                Swal.fire("Error!", "An error occurred while deleting the product.", "error"); // Error message
+            }
+        }
+    };
+
     // Search functionality
     useEffect(() => {
         const filteredData = products.filter((product) =>
@@ -33,13 +68,24 @@ const ProductList = () => {
         setFilteredProducts(filteredData);
     }, [searchText, products]);
 
-    // Define columns for DataTable with Sorting
+    // Define columns for DataTable with Sorting and Delete Button
     const columns = [
         { name: "#", selector: (row, index) => index + 1, sortable: true },
         { name: "Product Name", selector: (row) => row.name || "N/A", sortable: true },
         { name: "Category", selector: (row) => row.category || "N/A", sortable: true },
         { name: "Company", selector: (row) => row.company || "N/A", sortable: true },
         { name: "Price", selector: (row) => `$${row.price || "0.00"}`, sortable: true },
+        {
+            name: "Actions",
+            cell: (row) => (
+                <button
+                    onClick={() => deleteProduct(row._id)}
+                    style={{ backgroundColor: "red", color: "white", padding: "5px 10px", border: "none", borderRadius: "5px" }}
+                >
+                    Delete
+                </button>
+            ),
+        },
     ];
 
     return (
